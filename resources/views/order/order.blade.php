@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bakti Hall | Order</title>
 </head>
-
 <body>
     @extends('layouts.app')
     @section('content')
@@ -14,11 +13,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{$judul}}</h1>
+                        <h1>Pesanan Anda</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item active">Data Pesanan</li>
                         </ol>
                     </div>
@@ -48,17 +47,20 @@
                                             <th>Jam Berakhir</th>
                                             <th>Jenis Lapangan</th>
                                             <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                            $firsthall = DB::Table('firsthall')->SELECT('*');
-                                            $secondhall = DB::Table('secondhall')->SELECT('*');
+                                            // $firsthall = DB::Table('firsthall')->SELECT('*');
+                                            // $secondhall = DB::Table('secondhall')->SELECT('*');
 
-                                            $res = $firsthall->union($secondhall)->GET();
+                                            // $res = $firsthall->union($secondhall)->GET();
+                                            // $res = DB::Table('orders')->GET();
                                             $no = 0;
                                         @endphp
-                                        @foreach ($res as $key => $value)
+                                        @foreach ($orders as $value)
                                             @php
                                                 $no++;
                                             @endphp
@@ -71,14 +73,25 @@
                                                 <td>{{ $value->end_booking ?? '-' }}</td>
                                                 <td>{{ $value->jenis_lapangan ?? '-' }}</td>
                                                 <td>{{ $value->status ?? '-' }}</td>
-                                               
+                                                <td><a href="{{ Route('firsthall.edit', $value->id_firsthall) }}"
+                                                    class="btn btn-primary"><i class="fas fa-pen"></i></a></td>
+
+                                            <td>
+                                                <form action="{{ Route('firsthall.destroy', $value->id_firsthall) }}" method="POST"
+                                                    onsubmit="return confirm('Yakin Ingin Menghapus ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
-                                    <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar Sekarang</a>
+                                    <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar
+                                        Sekarang</a>
                                 </div>
                             </div>
                             <!-- /.card-body -->

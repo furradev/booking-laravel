@@ -23,6 +23,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::resources([
+    'firsthall' => FirsthallController::class,
+    'secondhall' => SecondhallController::class,
+    'order' => OrderController::class,
+]);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'rolesChecker:admin,customer'])->name('dashboard');
@@ -37,11 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resources([
-    'firsthall' => FirsthallController::class,
-    'secondhall' => SecondhallController::class,
-    'order' => OrderController::class,
-]);
+
+
+Route::get('/testing', function () {
+    return view('hall.tes');
+});
 
 
 
