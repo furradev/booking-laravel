@@ -11,6 +11,11 @@ class OrderController extends Controller {
     public function index() {
         $user= Auth()->user();
         $orders = $user->orders;
-        return view('order.order', compact('orders'));
+
+        $totalPrice = DB::Table('orders')
+        ->where('user_id', $user->id)
+        ->sum('price');
+
+        return view('order.order', compact('orders', 'totalPrice'));
     }
 }

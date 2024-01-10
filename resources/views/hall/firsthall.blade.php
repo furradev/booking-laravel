@@ -46,6 +46,7 @@
                                     <input type="time" class="form-control" id="end_booking" name="end_booking">
                                 </div>
                                 <input type="hidden" class="form-control" id="jenis_lapangan" name="jenis_lapangan" value="{{'Lapangan 1'}}">
+                                {{-- <input type="hidden" class="form-control" id="price" name="price" value="{{$totalPrice}}"> --}}
                                 <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{Auth::user()->id}}">
                             </div>
                             <!-- /.card-body -->

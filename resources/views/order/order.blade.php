@@ -88,6 +88,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="flex justify-content-end mt-2">
+                                    <input type="checkbox" id="downPayment">
+                                    <h6 class="pl-2">Bayar Uang Muka</h6>
+                                </div>
+                                <h6 class="flex justify-content-end my-2">Total Harga : <span class="priceNumber">{{$totalPrice}}</span></h6>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
                                     <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar
@@ -104,6 +109,22 @@
             </div>
             <!-- /.container-fluid -->
         </section>
+
+        <script>
+            const priceCheckbox = document.querySelector('#downPayment'),
+            totalPrice = document.querySelector('.priceNumber').textContent;
+
+            let priceText = parseFloat(totalPrice);
+
+            priceCheckbox.addEventListener('click',()=> {
+               let calculatePrice = totalPrice * 0.5;
+               totalPrice.textContent = calculatePrice.toFixed(2);
+               
+               console.log(calculatePrice);
+            })
+            
+            
+        </script>
     </body>
 @stop
 
