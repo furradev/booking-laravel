@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2024 at 05:24 PM
+-- Generation Time: Jan 10, 2024 at 02:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,30 +40,6 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `firsthall`
---
-
-CREATE TABLE `firsthall` (
-  `id_firsthall` int(11) NOT NULL,
-  `nama_pemesan` varchar(100) NOT NULL,
-  `nohp` varchar(20) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
-  `start_booking` time NOT NULL,
-  `end_booking` time NOT NULL,
-  `jenis_lapangan` varchar(20) NOT NULL DEFAULT 'Lapangan 1',
-  `status` enum('unverified','verified','','') NOT NULL DEFAULT 'unverified'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `firsthall`
---
-
-INSERT INTO `firsthall` (`id_firsthall`, `nama_pemesan`, `nohp`, `alamat`, `start_booking`, `end_booking`, `jenis_lapangan`, `status`) VALUES
-(9, 'Riski', '12313', 'jl.ada', '12:03:00', '14:03:00', 'Lapangan 1', 'unverified');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `migrations`
 --
 
@@ -82,6 +58,32 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id_firsthall` int(11) NOT NULL,
+  `nama_pemesan` varchar(100) NOT NULL,
+  `nohp` varchar(20) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `start_booking` time NOT NULL,
+  `end_booking` time NOT NULL,
+  `jenis_lapangan` varchar(20) NOT NULL,
+  `status` enum('pending','unverified','verified') NOT NULL DEFAULT 'pending',
+  `user_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id_firsthall`, `nama_pemesan`, `nohp`, `alamat`, `start_booking`, `end_booking`, `jenis_lapangan`, `status`, `user_id`) VALUES
+(22, 'Rehan Wazouski', '082388734824', 'Jl. Terikat', '12:00:00', '13:00:00', 'Lapangan 2', 'pending', 3),
+(23, 'Zhunge Liang', '0823214', 'Jl. Timor', '09:00:00', '10:00:00', 'Lapangan 1', 'pending', 3);
 
 -- --------------------------------------------------------
 
@@ -117,30 +119,6 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `secondhall`
---
-
-CREATE TABLE `secondhall` (
-  `id_secondhall` int(11) NOT NULL,
-  `nama_pemesan` varchar(100) NOT NULL,
-  `nohp` varchar(20) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
-  `start_booking` time NOT NULL,
-  `end_booking` time NOT NULL,
-  `jenis_lapangan` varchar(20) NOT NULL DEFAULT 'Lapangan 2',
-  `status` enum('unverified','verified','','') NOT NULL DEFAULT 'unverified'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `secondhall`
---
-
-INSERT INTO `secondhall` (`id_secondhall`, `nama_pemesan`, `nohp`, `alamat`, `start_booking`, `end_booking`, `jenis_lapangan`, `status`) VALUES
-(2, 'Riski', '24314', 'Jl. Todak', '12:00:00', '15:00:00', 'Lapangan 2', 'unverified');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -161,8 +139,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Babank TamVan Asmoking JR 😎', 'fakih@gmail.com', NULL, '$2y$12$d.9l6tIK2bjyfOC.LljIrOKP8FnJWnD1xcinqaXacIigX5JBv4Rz6', 'admin', 'Nz5K0FFsCbZleWqPX1ZY7vATrPEtgRZaOZ0mfZ1w7tnbxRIO3lx1HZibnhii', '2023-12-22 20:23:53', '2023-12-22 21:57:24'),
-(2, 'Riski Dewa Laravel 🤑', 'riski@gmail.com', NULL, '$2y$12$7tD8L7ajnJ/slCBUVvslYOkuKns/OWFM7.SsY5uHCxLrAqWykePA2', 'customer', 'CWpznO9x3WC29FoHVJUcotwb3H7WyPwZowf1ycvF7sk80mNkENq1KTQjo2ZG', '2023-12-22 20:59:19', '2024-01-02 21:59:52');
+(1, 'Babank TamVan Asmoking JR 😎', 'fakih@gmail.com', NULL, '$2y$12$d.9l6tIK2bjyfOC.LljIrOKP8FnJWnD1xcinqaXacIigX5JBv4Rz6', 'admin', 'OnkADlkNBj8MyIzj9IZbd140Ukk5W2T9WrzMtSmRTXEjMI6LbzBQYZ7jABOx', '2023-12-22 20:23:53', '2023-12-22 21:57:24'),
+(2, 'Riski Dewa Laravel 🤑', 'riski@gmail.com', NULL, '$2y$12$7tD8L7ajnJ/slCBUVvslYOkuKns/OWFM7.SsY5uHCxLrAqWykePA2', 'customer', 'TxZzshglSZOWUKV90CwyrQpSPQgpaQJNxiMdvBC09gtRCVzR3EFe6FtvoFIc', '2023-12-22 20:59:19', '2024-01-02 21:59:52'),
+(3, 'Rehan Wangsaf', 'rehan@gmail.com', NULL, '$2y$12$fWiR0iJc2wF/rgQyATO0QOBYNQMl1cAFlMmLyrT6k.OwS3/U1smKK', 'customer', 'bmBbZfc0jtYmqgttxqeZtEfKTOk1XIWVkkUIxPoUu6aSdWBP0g3WmAbiMUBf', '2024-01-04 02:00:22', '2024-01-04 02:00:22');
 
 --
 -- Indexes for dumped tables
@@ -176,16 +155,17 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `firsthall`
---
-ALTER TABLE `firsthall`
-  ADD PRIMARY KEY (`id_firsthall`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id_firsthall`),
+  ADD KEY `id_user` (`user_id`);
 
 --
 -- Indexes for table `password_reset_tokens`
@@ -200,12 +180,6 @@ ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Indexes for table `secondhall`
---
-ALTER TABLE `secondhall`
-  ADD PRIMARY KEY (`id_secondhall`);
 
 --
 -- Indexes for table `users`
@@ -225,16 +199,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `firsthall`
---
-ALTER TABLE `firsthall`
-  MODIFY `id_firsthall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id_firsthall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -243,16 +217,20 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `secondhall`
---
-ALTER TABLE `secondhall`
-  MODIFY `id_secondhall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
