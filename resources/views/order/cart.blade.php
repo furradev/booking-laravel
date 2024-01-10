@@ -53,11 +53,6 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            // $firsthall = DB::Table('firsthall')->SELECT('*');
-                                            // $secondhall = DB::Table('secondhall')->SELECT('*');
-
-                                            // $res = $firsthall->union($secondhall)->GET();
-                                            // $res = DB::Table('orders')->GET();
                                             $no = 0;
                                         @endphp
                                         @foreach ($orders as $value)
@@ -92,7 +87,7 @@
                                     <input type="checkbox" id="downPayment" onclick="toggleCheckbox(this)">
                                     <h6 class="pl-2">Bayar Uang Muka</h6>
                                 </div>
-                                <h6 class="flex justify-content-end my-2">Total Belanja : <span class="priceNumber">{{$totalOrderPrice}}</span></h6>
+                                <h6 class="flex justify-content-end my-2">Total Harga : <span class="priceNumber">{{$totalPendingPrice}}</span></h6>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
                                     <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar

@@ -10,12 +10,13 @@ use App\Models\User;
 class OrderController extends Controller {
     public function index() {
         $user= Auth()->user();
-        $orders = $user->orders;
+        $orders = $user->orders()->where('status', 'unverified')->get();
+        $totalOrderPrice = $user->orders()->where('status', 'unverified')->sum('price');
 
-        $totalPrice = DB::Table('orders')
-        ->where('user_id', $user->id)
-        ->sum('price');
-
-        return view('order.order', compact('orders', 'totalPrice'));
+        return view('order.order', compact('orders', 'totalOrderPrice'));
     }
+
+    // public function order() {
+    //     disini return viewny ke order.order lalu yang di filter dengan status unverified
+    // }
 }

@@ -26,6 +26,14 @@
         </ul>
       </li>
       <li class="nav-item">
+        <a href="{{url('/cart')}}" class="nav-link">
+          <i class="nav-icon fas fa-shopping-cart"></i>
+          <p>
+            Keranjang
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{url('/order')}}" class="nav-link">
           <i class="nav-icon fas fa-th"></i>
           <p>

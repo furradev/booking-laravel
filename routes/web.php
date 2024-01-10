@@ -18,6 +18,7 @@ use App\Http\Controllers\FirsthallController;
 use App\Http\Controllers\SecondhallController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,7 @@ Route::resources([
     'firsthall' => FirsthallController::class,
     'secondhall' => SecondhallController::class,
     'order' => OrderController::class,
+    'cart' => CartController::class,
 ]);
 
 Route::get('/dashboard', function () {
@@ -43,11 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-Route::get('/testing', function () {
-    return view('hall.tes');
-});
 
 
 
