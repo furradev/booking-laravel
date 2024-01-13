@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Pesanan Anda</h1>
+                        <h1>Keranjang</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -134,7 +134,11 @@
                                 <button type="button" class="shopeepay text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">SHOPEEPAY</button>
                                 <button type="button" class="tf-bank text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">TRANSFER BANK</button>
                             </div>
-                          
+                        </div>
+                        <div class="form-group">
+                            <h4 class="text-center">DANA</h4>
+                            <h6 class="text-center pt-3Tagihan Anda : </h6>
+                            
                         </div>
                     </div>
                 </div>
@@ -159,6 +163,12 @@
                     totalPrice.textContent = priceText / 0.5;
                 }
             }
+
+            const btnDana = document.querySelector('.dana'),
+            btnShopeePay = document.querySelector('.shopeepay'),
+            btnTfBank = document.querySelector('tf-bank');
+
+
 
         </script>
     </body>
