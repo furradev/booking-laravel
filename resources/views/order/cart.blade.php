@@ -9,6 +9,15 @@
 <body>
     @extends('layouts.app')
     @section('content')
+
+    @if(session('sukses') || session('pesan'))
+    <div class="alert alert-dismissible fade show {{ session('sukses') ? 'alert-success' : 'alert-danger' }}" role="alert">
+        <strong>Halo {{ Auth::user()->name }}!</strong> {{ session('sukses') ? session('sukses') : session('pesan') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -32,7 +41,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                                <h3 class="card-title"></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -56,10 +65,12 @@
                                             $no = 0;
                                         @endphp
                                         @foreach ($orders as $value)
+
                                             @php
                                                 $no++;
                                             @endphp
                                             <tr>
+                                        
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $value->nama_pemesan ?? '-' }}</td>
                                                 <td>{{ $value->nohp ?? '-' }}</td>
@@ -90,7 +101,7 @@
                                 <h6 class="flex justify-content-end my-2">Total Harga : <span class="priceNumber">{{$totalPendingPrice}}</span></h6>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
-                                    <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar
+                                    <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-warning text-white">Bayar
                                         Sekarang</a>
                                 </div>
                             </div>
@@ -105,6 +116,36 @@
             <!-- /.container-fluid -->
         </section>
 
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Menu Pembayaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="cart-body">
+                        <div class="form-group">
+                            <label for="paymentMethod">Metode Pembayaran</label>
+                            <div class="buttonMethod">
+                                <button type="button" class="dana text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">DANA</button>
+                                <button type="button" class="shopeepay text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">SHOPEEPAY</button>
+                                <button type="button" class="tf-bank text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">TRANSFER BANK</button>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             function toggleCheckbox(el) {
 
@@ -118,6 +159,7 @@
                     totalPrice.textContent = priceText / 0.5;
                 }
             }
+
         </script>
     </body>
 @stop

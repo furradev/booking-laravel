@@ -63,7 +63,7 @@
 
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                <a href="{{url('/')}}" class="brand-link">
+                <a href="{{url('/dashboard')}}" class="brand-link">
                     <img src="{{ url('lte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                         class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light">Bakti Hall Menu</span>
@@ -139,7 +139,15 @@
         <script src="{{url('lte/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
         <!-- ChartJS -->
         <script src="{{url('lte/plugins/chart.js/Chart.min.js')}}"></script>
-
+        
+        {{-- NEW ADDITIONAL FROM ANOTHER TEMPLATE --}}
+        <!-- jQuery -->
+        <script src="{{ url('lte/plugins/jquery/jquery.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- AdminLTE -->
+        <script src="{{ url('lte/dist/js/adminlte.js') }}"></script>
+        
         <!-- AdminLTE for demo purposes -->
         {{-- <script src="dist/js/demo.js"></script> --}}
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

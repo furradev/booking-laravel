@@ -47,17 +47,10 @@
                                             <th>Jam Berakhir</th>
                                             <th>Jenis Lapangan</th>
                                             <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
-                                            // $firsthall = DB::Table('firsthall')->SELECT('*');
-                                            // $secondhall = DB::Table('secondhall')->SELECT('*');
-
-                                            // $res = $firsthall->union($secondhall)->GET();
-                                            // $res = DB::Table('orders')->GET();
                                             $no = 0;
                                         @endphp
                                         @foreach ($orders as $value)
@@ -73,30 +66,13 @@
                                                 <td>{{ $value->end_booking ?? '-' }}</td>
                                                 <td>{{ $value->jenis_lapangan ?? '-' }}</td>
                                                 <td>{{ $value->status ?? '-' }}</td>
-                                                <td><a href="{{ Route('firsthall.edit', $value->id_firsthall) }}"
-                                                    class="btn btn-primary"><i class="fas fa-pen"></i></a></td>
-
-                                            <td>
-                                                <form action="{{ Route('firsthall.destroy', $value->id_firsthall) }}" method="POST"
-                                                    onsubmit="return confirm('Yakin Ingin Menghapus ?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                </form>
-                                            </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="flex justify-content-end mt-2">
-                                    <input type="checkbox" id="downPayment" onclick="toggleCheckbox(this)">
-                                    <h6 class="pl-2">Bayar Uang Muka</h6>
-                                </div>
                                 <h6 class="flex justify-content-end my-2">Total Belanja : <span class="priceNumber">{{$totalOrderPrice}}</span></h6>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
-                                    <a href="{{ url('dosen/create') }}" class="btn btn-warning text-white">Bayar
-                                        Sekarang</a>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -110,20 +86,7 @@
             <!-- /.container-fluid -->
         </section>
 
-        <script>
-            function toggleCheckbox(el) {
 
-            const priceCheckbox = document.querySelector('#downPayment'),
-            totalPrice = document.querySelector('.priceNumber');
-
-            let priceText = parseFloat(totalPrice.textContent);
-                if(el.checked) {
-                    totalPrice.textContent = priceText * 0.5;
-                } else {
-                    totalPrice.textContent = priceText / 0.5;
-                }
-            }
-        </script>
     </body>
 @stop
 

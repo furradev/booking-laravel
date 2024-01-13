@@ -17,7 +17,7 @@ class CartController extends Controller
         // ->sum('price');
 
         return view('order.cart', compact('orders', 'totalPendingPrice'));
-
-       
     }
+
+
 }

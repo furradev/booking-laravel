@@ -34,20 +34,28 @@ class FirsthallController extends Controller {
             'user_id' => $r->user_id,
         );
 
-        $pesan = '';
-        $rec =\DB::table('orders')
-            ->where('id_firsthall', $r->id_firsthall)
+
+        $filteredOrder = \DB::Table('orders')
+			->where('jenis_lapangan', $r->jenis_lapangan)
+			->where(function($query) use ($startBooking, $endBooking) {
+                $query->whereBetween('start_booking', [$startBooking, $endBooking])
+            ->orWhereBetween('end_booking', [$startBooking, $endBooking]);
+                })
             ->first();
+
+        // $rec =\DB::table('orders')
+        //     ->where('id_firsthall', $r->id_firsthall)
+        //     ->first();
         
-            if($rec == null) {
-                DB::table('orders')
-                    ->insertgetId($x);           
+            if($filteredOrder == null) {
+                DB::Table('orders')
+                    ->insertgetId($x);
+                    return redirect()->route('cart.index')->with('sukses', 'Jadwal Berhasil Disimpan');        
             } else {
-                $pesan = "Jadwal Sudah Terdaftar";
+                return redirect()->route('cart.index')->with('pesan', 'Maaf jadwal sudah terdaftar, silahkan menggunakan jadwal yang lain.');
             }
         
-            return redirect()->route('order.index')
-                    ->with('pesan', $pesan);
+            
     }
 
     public function edit($id_firsthall) {
@@ -82,7 +90,7 @@ class FirsthallController extends Controller {
             ->where('id_firsthall', $r->id_firsthall)
             ->update($x);
 
-            return redirect()->route('order.index');
+            return redirect()->route('cart.index');
     }
 
     public function destroy($id_firsthall) {
@@ -91,7 +99,7 @@ class FirsthallController extends Controller {
                 ->where('id_firsthall', $id_firsthall)
                 ->delete();
 
-                return redirect()->route('order.index')
+                return redirect()->route('cart.index')
                         ->with('id_firsthall', $id_firsthall);
     }
 }
