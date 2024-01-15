@@ -9,6 +9,15 @@
 <body>
     @extends('layouts.app')
     @section('content')
+
+    @if(session('pesan'))
+    <div class="alert alert-dismissible fade show alert-danger" role="alert">
+        <strong>Halo {{ Auth::user()->name }}!</strong> {{ session('pesan') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     
     <section class="content pt-2">
         <div class="container-fluid">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2024 at 08:06 AM
+-- Generation Time: Jan 15, 2024 at 08:09 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `checkout` (
   `id_checkout` int(11) NOT NULL,
-  `current_paid` int(11) NOT NULL,
   `image` varchar(200) NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id_firsthall` int(11) NOT NULL,
+  `id_order` bigint(20) UNSIGNED NOT NULL,
   `nama_pemesan` varchar(100) NOT NULL,
   `nohp` varchar(20) NOT NULL,
   `alamat` varchar(200) NOT NULL,
@@ -88,6 +88,7 @@ CREATE TABLE `orders` (
   `jenis_lapangan` varchar(20) NOT NULL,
   `price` int(100) NOT NULL,
   `status` enum('pending','unverified','verified') NOT NULL DEFAULT 'pending',
+  `image` varchar(200) DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -95,9 +96,10 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id_firsthall`, `nama_pemesan`, `nohp`, `alamat`, `start_booking`, `end_booking`, `jenis_lapangan`, `price`, `status`, `user_id`) VALUES
-(24, 'Rehan', '08474293412', 'adsadaf', '12:00:00', '13:00:00', 'Lapangan 1', 35000, 'pending', 3),
-(39, 'adadad', '124142', 'adada', '12:00:00', '13:00:00', 'Lapangan 2', 35000, 'pending', 3);
+INSERT INTO `orders` (`id_order`, `nama_pemesan`, `nohp`, `alamat`, `start_booking`, `end_booking`, `jenis_lapangan`, `price`, `status`, `image`, `user_id`) VALUES
+(48, 'deni', '1029015', 'adasava', '14:00:00', '16:00:00', 'Lapangan 1', 70000, 'unverified', 'bukti-pembayaran/dJuoDzaxFEG2oSeG5As2VjVBhjbyL5PqLHPJSqA3.png', 3),
+(49, 'Johan', '124124', 'xd', '12:00:00', '13:00:00', 'Lapangan 2', 35000, 'pending', NULL, 3),
+(50, 'aaa', '12414', 'adada', '17:00:00', '18:00:00', 'Lapangan 1', 35000, 'pending', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 --
 ALTER TABLE `checkout`
   ADD PRIMARY KEY (`id_checkout`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -186,7 +189,7 @@ ALTER TABLE `migrations`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id_firsthall`),
+  ADD PRIMARY KEY (`id_order`),
   ADD KEY `id_user` (`user_id`);
 
 --
@@ -215,6 +218,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `checkout`
+--
+ALTER TABLE `checkout`
+  MODIFY `id_checkout` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -230,7 +239,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id_firsthall` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_order` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -252,7 +261,8 @@ ALTER TABLE `users`
 -- Constraints for table `checkout`
 --
 ALTER TABLE `checkout`
-  ADD CONSTRAINT `checkout_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `checkout_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id_order`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `checkout_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`

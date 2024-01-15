@@ -11,7 +11,7 @@
     @section('content')
     @php
     $rec = DB::Table("orders")
-            ->where('id_firsthall', $id_firsthall)
+            ->where('id_order', $id_order)
             ->first();
     @endphp
     <section class="content pt-2">
@@ -26,10 +26,10 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ url('firsthall/' .$id_firsthall) }}" method="POST">
+                        <form action="{{ url('firsthall/' .$id_order) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" class="form-control" id="id_firsthall" name="id_firsthall" value="{{$id_firsthall}}">
+                            <input type="hidden" class="form-control" id="id_order" name="id_order" value="{{$id_order}}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nama_pemesan">Nama Pemesan</label>

@@ -39,14 +39,16 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Order ID</th>
                                             <th>Nama</th>
                                             <th>No Telepon</th>
                                             <th>Alamat</th>
                                             <th>Jam Mulai</th>
                                             <th>Jam Berakhir</th>
                                             <th>Jenis Lapangan</th>
+                                            <th>Harga Booking</th>
                                             <th>Status</th>
+                                            <th>View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,19 +56,21 @@
                                             $no = 0;
                                         @endphp
                                         @foreach ($orders as $value)
-                                            @php
-                                                $no++;
-                                            @endphp
                                             <tr>
-                                                <td>{{ $no }}</td>
+                                                <td>{{ $value->id_order ?? '-' }}</td>
                                                 <td>{{ $value->nama_pemesan ?? '-' }}</td>
                                                 <td>{{ $value->nohp ?? '-' }}</td>
                                                 <td>{{ $value->alamat ?? '-' }}</td>
                                                 <td>{{ $value->start_booking ?? '-' }}</td>
                                                 <td>{{ $value->end_booking ?? '-' }}</td>
                                                 <td>{{ $value->jenis_lapangan ?? '-' }}</td>
+                                                <td>{{ $value->price ?? '-' }}</td>
                                                 <td>{{ $value->status ?? '-' }}</td>
+                                                <td>
+                                                    <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-success text-white btn-view" data-order-id="{{$value->id_order}}" data-image="{{$value->image}}"><i class="fas fa-eye" data-></i></a>
+                                                </td>
                                             </tr>
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -86,6 +90,41 @@
             <!-- /.container-fluid -->
         </section>
 
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Bukti Pembayaran</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="cart-body">
+                            <img src="{{url('storage/public/bukti-pembayaran/dJuoDzaxFEG2oSeG5As2VjVBhjbyL5PqLHPJSqA3.png')}}" class="buktiBayar" alt="bukti-pembayaran" class="rounded">
+                            <input type="hidden" id="selectedOrderId" name="selectedOrderId" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const modal = document.getElementById('exampleModalCenter'),
+            btnView = document.querySelectorAll('.btn-view'),
+            buktiBayar = document.querySelector('.buktiBayar'),
+            selectingOrderId = document.getElementById('selectedOrderId');
+
+
+            btnView.forEach(button => {
+                button.addEventListener('click', () => {
+                    const selectedOrderId = button.getAttribute('data-order-id');
+                    const selectedImageSrc = button.getAttribute('data-image');
+                    // buktiBayar.src = `{{url('/storage/public/${selectedImageSrc}')}}`;
+                    selectingOrderId.value = button.getAttribute('data-order-id');
+                });
+            });            
+
+        </script>
 
     </body>
 @stop

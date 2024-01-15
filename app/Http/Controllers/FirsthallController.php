@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
 
+
 class FirsthallController extends Controller {
     public function index() {
         return view('hall.firsthall')
@@ -14,7 +15,6 @@ class FirsthallController extends Controller {
     }
 
     public function store(Request $r) {
-
         $startBooking = Carbon::parse($r->input('start_booking'));
         $endBooking = Carbon::parse($r->input('end_booking'));
 
@@ -50,19 +50,19 @@ class FirsthallController extends Controller {
             if($filteredOrder == null) {
                 DB::Table('orders')
                     ->insertgetId($x);
-                    return redirect()->route('cart.index')->with('sukses', 'Jadwal Berhasil Disimpan');        
+                return redirect()->route('cart.index')->with('sukses', 'Jadwal Berhasil Disimpan');        
             } else {
-                return redirect()->route('cart.index')->with('pesan', 'Maaf jadwal sudah terdaftar, silahkan menggunakan jadwal yang lain.');
+                return redirect()->route('firsthall.index')->with('pesan', 'Maaf jadwal sudah terdaftar, silahkan menggunakan jadwal yang lain.');
             }
         
             
     }
 
-    public function edit($id_firsthall) {
+    public function edit($id_order) {
         
         return view('hall.edit')
                 ->with('judul', 'Edit Pesanan Anda')
-                ->with('id_firsthall', $id_firsthall);
+                ->with('id_order', $id_order);
     }
 
     public function update(Request $r) {
@@ -93,13 +93,13 @@ class FirsthallController extends Controller {
             return redirect()->route('cart.index');
     }
 
-    public function destroy($id_firsthall) {
+    public function destroy($id_order) {
 
         $del = \DB::table('orders')
-                ->where('id_firsthall', $id_firsthall)
+                ->where('id_order', $id_order)
                 ->delete();
 
                 return redirect()->route('cart.index')
-                        ->with('id_firsthall', $id_firsthall);
+                        ->with('id_order', $id_order);
     }
 }
