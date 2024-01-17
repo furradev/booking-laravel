@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ url('lte/dist/css/adminlte.min.css') }}">
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="{{url('lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
         {{-- END Admin LTE Head --}}
     </head>
 
@@ -44,7 +46,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- User Icon -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('profile.edit')}}" data-widget="navbar-search" role="button">
+                        <a class="nav-link" href="{{url('profile')}}" data-widget="navbar-search" role="button">
                           <i class="fas fa-user"></i>
                         </a>
                     </li>
@@ -147,6 +149,8 @@
         <script src="{{ url('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE -->
         <script src="{{ url('lte/dist/js/adminlte.js') }}"></script>
+        <!-- overlayScrollbars -->
+        <script src="{{url('lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
         
         <!-- AdminLTE for demo purposes -->
         {{-- <script src="dist/js/demo.js"></script> --}}

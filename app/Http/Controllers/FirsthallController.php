@@ -39,7 +39,11 @@ class FirsthallController extends Controller {
 			->where('jenis_lapangan', $r->jenis_lapangan)
 			->where(function($query) use ($startBooking, $endBooking) {
                 $query->whereBetween('start_booking', [$startBooking, $endBooking])
-            ->orWhereBetween('end_booking', [$startBooking, $endBooking]);
+                      ->orWhereBetween('end_booking', [$startBooking, $endBooking]);
+                })
+            ->where(function($query) {
+                $query->where('status', 'pending')
+                      ->orWhere('status', 'rejected');
                 })
             ->first();
 
@@ -54,8 +58,6 @@ class FirsthallController extends Controller {
             } else {
                 return redirect()->route('firsthall.index')->with('pesan', 'Maaf jadwal sudah terdaftar, silahkan menggunakan jadwal yang lain.');
             }
-        
-            
     }
 
     public function edit($id_order) {

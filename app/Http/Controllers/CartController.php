@@ -21,7 +21,6 @@ class CartController extends Controller
 
     public function store(Request $r) {
 
-        ddd($r);
         $dataValidate = $r->validate(['image' => 'image|mimes:png,jpg,jpeg|max:2048']);
 
         $selectedOrderId = $r->input('selectedOrderId');
@@ -30,13 +29,23 @@ class CartController extends Controller
         $imageAccess = $r->file('image');
         if($imageChecking) {
             // $dataValidate['image'] = $imageAccess->store('bukti-pembayaran');
-            $imagePath = $imageAccess->storeAs('bukti-pembayaran', $imageAccess->hashName());
-            \DB::table('orders')
-            ->where('id_order', $selectedOrderId)
-            ->update(['image' => $imagePath, 'status' => 'unverified',]);
-        }
+            try {
+                $imagePath = $imageAccess->storeAs('bukti-pembayaran', $imageAccess->hashName());
+                \DB::table('orders')
+                ->where('id_order', $selectedOrderId)
+                ->update(['image' => $imagePath, 'status' => 'unverified',]);
+    
+                return redirect()->route('order.index');
+            } catch(\Exception $e) {
+                return redirect()->route('cart.index')->withErrors(['image' => 'Format gambar tidak sesuai!']);
+            }
+        } 
 
-        return redirect()->route('order.index');
+        return redirect()->route('cart.index')->withErrors(['image' => 'Gambar belum diupload!']);
+
+
+
+        
 
 
 

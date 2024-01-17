@@ -65,7 +65,14 @@
                                                 <td>{{ $value->end_booking ?? '-' }}</td>
                                                 <td>{{ $value->jenis_lapangan ?? '-' }}</td>
                                                 <td>{{ $value->price ?? '-' }}</td>
-                                                <td>{{ $value->status ?? '-' }}</td>
+                                                <td><span class="badge {{
+                                                    $value->status == "pending" ? "badge-warning" :
+                                                    ($value->status == "unverified" ? "badge-info" :
+                                                    ($value->status == "verified" ? "badge-success" :
+                                                    ($value->status == "rejected" ? "badge-danger" :
+                                                    ($value->status == "finished" ? "badge-dark" :
+                                                    "badge-secondary"))))
+                                                }}">{{$value->status}}</span></td>
                                                 <td>
                                                     <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-success text-white btn-view" data-order-id="{{$value->id_order}}" data-image="{{$value->image}}"><i class="fas fa-eye" data-></i></a>
                                                 </td>
@@ -74,7 +81,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <h6 class="flex justify-content-end my-2">Total Belanja : <span class="priceNumber">{{$totalOrderPrice}}</span></h6>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
                                 </div>

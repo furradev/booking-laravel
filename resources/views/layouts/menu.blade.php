@@ -2,8 +2,16 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item menu-open">
-        <a href="#" class="nav-link active">
+      <li class="nav-item {{Auth::user()->role == 'customer' ? 'hidden' : ''}}">
+        <a href="{{url('/admin')}}" class="nav-link">
+          <i class="nav-icon fas fa-user-shield"></i>
+          <p>
+            Admin Panel
+          </p>
+        </a>
+      </li>
+      <li class="nav-item menu-close">
+        <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Pilihan Lapangan

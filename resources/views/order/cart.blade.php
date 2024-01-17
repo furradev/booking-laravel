@@ -18,6 +18,15 @@
         </button>
     </div>
     @endif
+
+    @if($errors->has('image'))
+    <div class="alert alert-dismissible fade show alert-danger" role="alert">
+        <strong>Halo {{ Auth::user()->name }}!</strong> {{ $errors->first('image') == 'The image field must be an image.' ? 'Format gambar tidak sesuai atau ukuran terlalu besar, max:2MB' : 'Gambar belum diupload!' }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

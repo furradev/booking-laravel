@@ -10,7 +10,7 @@ use App\Models\User;
 class OrderController extends Controller {
     public function index() {
         $user= Auth()->user();
-        $orders = $user->orders()->where('status', 'unverified')->get();
+        $orders = $user->orders()->whereIn('status', ['unverified', 'verified', 'rejected'])->get();
         $totalOrderPrice = $user->orders()->where('status', 'unverified')->sum('price');
 
         return view('order.order', compact('orders', 'totalOrderPrice'));
