@@ -41,15 +41,7 @@ class FirsthallController extends Controller {
                 $query->whereBetween('start_booking', [$startBooking, $endBooking])
                       ->orWhereBetween('end_booking', [$startBooking, $endBooking]);
                 })
-            ->where(function($query) {
-                $query->where('status', 'pending')
-                      ->orWhere('status', 'rejected');
-                })
             ->first();
-
-        // $rec =\DB::table('orders')
-        //     ->where('id_firsthall', $r->id_firsthall)
-        //     ->first();
         
             if($filteredOrder == null) {
                 DB::Table('orders')

@@ -20,16 +20,17 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+});
 
 
 
-Route::get('/dashboard', function () {
-    return view('layouts.app');
-})->middleware(['auth', 'verified', 'rolesChecker:admin,customer'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('layouts.dashboard');
+// })->middleware(['auth', 'verified', 'rolesChecker:admin,customer'])->name('dashboard');
 
 Route::resource('admin', AdminController::class)->middleware(['auth', 'verified', 'rolesChecker:admin'])->name('admin', 'index');
 
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
         'secondhall' => SecondhallController::class,
         'order' => OrderController::class,
         'cart' => CartController::class,
+        'dashboard' => DashboardController::class,
     ]);
 });
 

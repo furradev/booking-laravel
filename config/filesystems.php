@@ -31,8 +31,8 @@ return [
     'disks' => [
 
         'local' => [
-            'driver' => 'public',
-            'root' => storage_path('public/'),
+            'driver' => 'local',
+            'root' => storage_path('app'),
             'throw' => false,
         ],
 

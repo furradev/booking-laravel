@@ -21,17 +21,18 @@
 
     @if($errors->has('image'))
     <div class="alert alert-dismissible fade show alert-danger" role="alert">
-        <strong>Halo {{ Auth::user()->name }}!</strong> {{ $errors->first('image') == 'The image field must be an image.' ? 'Format gambar tidak sesuai atau ukuran terlalu besar, max:2MB' : 'Gambar belum diupload!' }}
+        <strong>Halo {{ Auth::user()->name }}!</strong> {{ $errors->first('image') == 'The image field must be an image.' ? 'Format gambar tidak sesuai atau ukuran terlalu besar, max:2MB' : 'Gambar belum diupload atau ukuran terlalu besar, max:2MB!' }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     @endif
+    
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Pembayaran</h1>
+                        <h1>Keranjang</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -108,9 +109,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                    <p class="mt-2">Note : Jika tidak melakukan pembayaran dalam waktu 10 menit, booking akan otomatis tertolak.</p>
                                 <div class="d-flex justify-content-between mt-3">
                                     <a href="{{ url('/dashboard') }}" class="btn btn-danger">Kembali</a>
-                                    
                                 </div>
                             </div>
                             <!-- /.card-body -->

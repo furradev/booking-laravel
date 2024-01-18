@@ -48,6 +48,7 @@
                                             <th>Jenis Lapangan</th>
                                             <th>Harga Booking</th>
                                             <th>Status</th>
+                                            <th>Hapus</th>
                                             <th>View</th>
                                         </tr>
                                     </thead>
@@ -70,14 +71,26 @@
                                                     ($value->status == "unverified" ? "badge-info" :
                                                     ($value->status == "verified" ? "badge-success" :
                                                     ($value->status == "rejected" ? "badge-danger" :
-                                                    ($value->status == "finished" ? "badge-dark" :
+                                                    ($value->status == "finished" ? "badge-secondary" :
                                                     "badge-secondary"))))
                                                 }}">{{$value->status}}</span></td>
                                                 <td>
+                                                    @if($value->status == "rejected" || $value->status == "finished" )
+                                                        <form action="{{ Route('order.destroy', $value->id_order) }}" method="POST"
+                                                            onsubmit="return confirm('Yakin Ingin Menghapus ?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <button type="submit" class="btn btn-danger" disabled><i class="fas fa-trash"></i></button>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-success text-white btn-view" data-order-id="{{$value->id_order}}" data-image="{{$value->image}}"><i class="fas fa-eye" data-></i></a>
                                                 </td>
+                                                
                                             </tr>
-                                            
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -95,7 +108,6 @@
             </div>
             <!-- /.container-fluid -->
         </section>
-
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -107,7 +119,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="cart-body">
-                            <img src="{{url('storage/public/bukti-pembayaran/dJuoDzaxFEG2oSeG5As2VjVBhjbyL5PqLHPJSqA3.png')}}" class="buktiBayar" alt="bukti-pembayaran" class="rounded">
+                            <img src="" class="buktiBayar" alt="bukti-pembayaran" class="rounded">
                             <input type="hidden" id="selectedOrderId" name="selectedOrderId" value="">
                         </div>
                     </div>
@@ -125,7 +137,7 @@
                 button.addEventListener('click', () => {
                     const selectedOrderId = button.getAttribute('data-order-id');
                     const selectedImageSrc = button.getAttribute('data-image');
-                    // buktiBayar.src = `{{url('/storage/public/${selectedImageSrc}')}}`;
+                    buktiBayar.src = `{{asset('storage/${selectedImageSrc}')}}`;
                     selectingOrderId.value = button.getAttribute('data-order-id');
                 });
             });            

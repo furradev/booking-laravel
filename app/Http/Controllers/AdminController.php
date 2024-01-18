@@ -7,9 +7,10 @@ use App\Models\User;
 class AdminController extends Controller
 {
     public function index() {
-        $user= Auth()->user();
-        $orders = $user->orders()->get();
-        $getOrderData = \DB::Table('orders')->get();
+        // $user= Auth()->user();
+        // $orders = $user->orders()->get();
+        // $getOrderData = \DB::Table('orders')->get();
+
         $totalOrder = \DB::Table('orders')->count();
         $totalUser = \DB::Table('users')->count();
 
@@ -23,7 +24,7 @@ class AdminController extends Controller
                 ->whereIn('status', ['pending', 'unverified'])
                 ->get();
 
-        return view('layouts.adminpanel', compact('getOrderData', 'totalOrder', 'totalUser', 'orderRejected', 'orderVerified', 'orderMultiple'));
+        return view('layouts.adminpanel', compact('totalOrder', 'totalUser', 'orderRejected', 'orderVerified', 'orderMultiple'));
     }
 
     public function edit($id_order) {
@@ -40,6 +41,14 @@ class AdminController extends Controller
         $rec =\DB::table('orders')
         ->where('id_order', $id_order)
         ->update(['status' => 'verified']);
+
+        return redirect()->route('admin.index');
+    }
+
+    public function update($id_order) {
+        $rec =\DB::table('orders')
+            ->where('id_order', $id_order)
+            ->update(['status' => 'finished']);
 
         return redirect()->route('admin.index');
     }

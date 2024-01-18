@@ -20,15 +20,14 @@ class CartController extends Controller
     }
 
     public function store(Request $r) {
-
+        // $dataValidate['image'] = $imageAccess->store('bukti-pembayaran');
         $dataValidate = $r->validate(['image' => 'image|mimes:png,jpg,jpeg|max:2048']);
-
+        
         $selectedOrderId = $r->input('selectedOrderId');
 
-        $imageChecking = $r->hasFile('image');
         $imageAccess = $r->file('image');
-        if($imageChecking) {
-            // $dataValidate['image'] = $imageAccess->store('bukti-pembayaran');
+        if($r->hasFile('image')) {
+
             try {
                 $imagePath = $imageAccess->storeAs('bukti-pembayaran', $imageAccess->hashName());
                 \DB::table('orders')
@@ -43,76 +42,6 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->withErrors(['image' => 'Gambar belum diupload!']);
 
-
-
-        
-
-
-
-
-
-
-        // $imageStatus = \DB::table('orders')
-        //         ->whereNull('image')
-        //         ->first();
-
-        // if($imageStatus) {
-        //     \DB::table('orders')
-        //     ->where('id_order', $imageStatus->id)
-        //     ->update($orderImage);
-        //     return redirect()->route('cart.index');
-
-        // } else {
-        //     return redirect()->route('cart.index');
-        // }
-
-
-
-
-        // $user= Auth()->user();
-
-        // $orderPending = \DB::Table('orders')
-        //     ->where('user_id', $user_id)
-        //     ->where('status', 'pending')
-        //     ->get();
-
-        //     if($orderPending->isNotEmpty()) {
-        //         $x = array(
-        //                 'image' => $r->image,
-        //                 'user_id' => $user_id,
-        //                 'order_id' => $r->order_id,
-        //             );
-                
-        //         $rec =\DB::Table('checkout')
-        //             ->insertGetId($x);
-                
-        //         \DB::Table('orders')
-        //             ->where('user_id', $user_id)
-        //             ->where('status', 'pending')
-        //             ->update(['status' => 'unverified', 'checkout_id' => $rec]);
-                    
-        //             return redirect()->route('order.index');
-        //         } else {
-        //             return redirect()->route('cart.index'); 
-        //         }       
-
-        // $x = array(
-        //     'image' => $r->image,
-        //     'user_id' => $r->user_id,
-        // );
-
-        // $rec =\DB::table('checkout')
-        //     ->where('id_checkout', $r->id_checkout)
-        //     ->first();
-        
-        //     if($rec == null) {
-        //         \DB::table('checkout')
-        //             ->InsertGetId($x);
-        //     } else {
-        //         $pesan = "Nid Sudah Terdaftar";
-        //     }
-
-        //     return redirect()->route('order.index');
     }
 
 

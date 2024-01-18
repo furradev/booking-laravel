@@ -115,15 +115,10 @@
                             <td>
                                 <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-info text-white btn-view" data-order-id="{{$order->id_order}}" data-image="{{$order->image}}"><i class="fas fa-eye" data-></i></a>
                             </td>
-                            <td><button class="{{$order->status == "rejected" ? "btn btn-success" : ''}}" {{$order->status == "rejected" ? "disabled" : ""}}>
-                                @if($order->status == "rejected")
-                                    <i class="fas fa-check"></i>
-                                @else
-                                <a href="{{ Route('admin.update', $order->id_order) }}"
-                                class="btn btn-success"><i class="fas fa-check"></i>
+                            <td>
+                                <a href="{{ Route('admin.show', $order->id_order) }}"
+                                  class="btn btn-success"><i class="fas fa-check"></i>
                                 </a>
-                                @endif
-                                </button>
                             </td>
                         </tr>
                         @endforeach
@@ -242,6 +237,7 @@
                             <th>Harga Pesanan</th>
                             <th>Status Pesanan</th>
                             <th>View</th>
+                            <th>Selesai</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -259,13 +255,20 @@
                                       ($verified->status == "unverified" ? "badge-info" :
                                       ($verified->status == "verified" ? "badge-success" :
                                       ($verified->status == "rejected" ? "badge-danger" :
-                                      ($verified->status == "finished" ? "badge-dark" :
+                                      ($verified->status == "finished" ? "badge-secondary" :
                                       "badge-secondary"))))
                                   }}">
                                       {{ $verified->status }}
                                   </span></td>
                                   <td>
                                       <a href="#" data-target="#exampleModalCenter" data-toggle="modal" class="btn btn-info text-white btn-view" data-order-id="{{$verified->id_order}}" data-image="{{$verified->image}}"><i class="fas fa-eye" data-></i></a>
+                                  </td>
+                                  <td>
+                                    <form action="{{ Route('admin.update', $verified->id_order) }}" method="POST">
+                                      @csrf
+                                      @method('patch')
+                                      <button type="submit" class="btn btn-danger"><i class="fas fa-stopwatch"></i></button>
+                                  </form>
                                   </td>
                               </tr>
                               @endforeach
@@ -299,8 +302,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="cart-body">
-                        {{-- <img src="" class="buktiBayar" alt="bukti-pembayaran" class="rounded"> --}}
-                        <p><img src="" class="buktiBayar" alt=""></p>
+                        <img src="" class="buktiBayar" alt="bukti-pembayaran" class="rounded">
                         <input type="hidden" id="selectedOrderId" name="selectedOrderId" value="">
                     </div>
                 </div>
@@ -319,8 +321,7 @@
             button.addEventListener('click', () => {
                 const selectedOrderId = button.getAttribute('data-order-id');
                 const selectedImageSrc = button.getAttribute('data-image');
-                buktiBayar.textContent = `{{url('/storage/public/${selectedImageSrc}')}}`;
-                buktiBayar.alt = `{{url('/storage/public/${selectedImageSrc}')}}`;
+                buktiBayar.src = `{{asset('storage/${selectedImageSrc}')}}`;
                 selectingOrderId.value = button.getAttribute('data-order-id');
             });
         });            

@@ -17,7 +17,6 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div class="w-[300px] relative">
-                
                     <img src="{{url('images/kok.png')}}" alt="shuttlecock" class="w-full absolute top-[-120px] left-[160px]">
                 <a href="/">
                     <h1 class="text-4xl font-semibold ">Bakti Hall</h1>
