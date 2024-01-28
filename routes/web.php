@@ -26,10 +26,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+route ::resource('jadwal', 'App\Http\Controllers\jadwal');
 
-
+// Route::get('/dashboard', function () {
+//     return view('layouts.dashboard');
+// })->middleware(['auth', 'verified', 'rolesChecker:admin,customer'])->name('dashboard');
 
 Route::resource('admin', AdminController::class)->middleware(['auth', 'verified', 'rolesChecker:admin'])->name('admin', 'index');
+
+// Route::middleware('auth', 'rolesChecker:admin')->group(function() {
+//     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+// });
+// Route::get('/admin', function () {
+//     return view('layouts.adminpanel');
+// })->middleware(['auth', 'verified', 'rolesChecker:admin'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,22 +53,6 @@ Route::middleware('auth')->group(function () {
         'cart' => CartController::class,
         'dashboard' => DashboardController::class,
     ]);
-
-
-    // Route::get('/dashboard', function () {
-//     return view('layouts.dashboard');
-// })->middleware(['auth', 'verified', 'rolesChecker:admin,customer'])->name('dashboard');
-
-
-
-// Route::middleware('auth', 'rolesChecker:admin')->group(function() {
-//     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-// });
-// Route::get('/admin', function () {
-//     return view('layouts.adminpanel');
-// })->middleware(['auth', 'verified', 'rolesChecker:admin'])->name('admin');
-
-
 });
 
 

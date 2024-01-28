@@ -7,6 +7,8 @@ use App\Models\User;
 class AdminController extends Controller
 {
     public function index() {
+
+
         $totalOrder = \DB::Table('orders')->count();
         $totalUser = \DB::Table('users')->count();
 
@@ -44,9 +46,7 @@ class AdminController extends Controller
     public function update($id_order) {
         $rec =\DB::table('orders')
             ->where('id_order', $id_order)
-            ->update(['status' => 'finished',
-                'start_booking' => '00:00',
-                'end_booking' => '00:00']);
+            ->update(['status' => 'finished']);
 
         return redirect()->route('admin.index');
     }
